@@ -1,22 +1,14 @@
 <p align="center">
-<img width=300 height=300 src=https://www.google.com/url?sa=i&url=https%3A%2F%2Fpt.wikipedia.org%2Fwiki%2FHTML5&psig=AOvVaw1GWXOPZxaAl4Y0z3y-hQpk&ust=1653926905255000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDs8YKMhfgCFQAAAAAdAAAAABAD>
+<img width=300 height=300 src=https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.holbertonschool.com%2F&psig=AOvVaw3eIzQH8z1B-7zUE6hxKRVk&ust=1653929588609000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOi0wYKWhfgCFQAAAAAdAAAAABAD>
 </p>
 
 # 0x02. HTML Advanced
 
-## Introduction
+## Description
 
 This project is part of the studies about HTML by Holberton School
 
 It is also the HTML code for the homepage
-
-
-
-## Layout
-
-The layout is available on Figma
-
-
 
 ## Author
 
