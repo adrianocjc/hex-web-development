@@ -1,0 +1,28 @@
+/* Flexbox */
+
+body, main {
+	display: flex;
+}
+
+body {
+	flex-direction: column;
+}
+
+main {
+	flex-direction: row;
+	flex: auto;
+}
+
+article {
+	flex: 3;        /* to occpy 2/3 of the width of page */
+	overflow-y: auto;  /* to scroll within */
+}
+
+article:not(.twitter-tweet) {
+	background:#f5E3DA;	
+} 
+
+aside {
+	flex: 1;		/* to occupy 1/3 of the width of the page */ 
+	overflow-y: auto;
+}
