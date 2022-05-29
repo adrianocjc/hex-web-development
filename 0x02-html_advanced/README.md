@@ -1,4 +1,6 @@
-![1200px-HTML5_logo_and_wordmark.svg](C:\Users\Adriano Costa\Desktop\1200px-HTML5_logo_and_wordmark.svg.png)
+<p align="center">
+<img width=300 height=300 src=https://www.google.com/url?sa=i&url=https%3A%2F%2Fpt.wikipedia.org%2Fwiki%2FHTML5&psig=AOvVaw1GWXOPZxaAl4Y0z3y-hQpk&ust=1653926905255000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDs8YKMhfgCFQAAAAAdAAAAABAD>
+</p>
 
 # 0x02. HTML Advanced
 
