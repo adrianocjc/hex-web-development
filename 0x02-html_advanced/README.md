@@ -1,6 +1,4 @@
-<p align="center">
-<img width=300 height=300 src=https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.holbertonschool.com%2F&psig=AOvVaw3eIzQH8z1B-7zUE6hxKRVk&ust=1653929588609000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOi0wYKWhfgCFQAAAAAdAAAAABAD>
-</p>
+<img width=150 src=https://user-images.githubusercontent.com/79386876/170882422-a1880b82-5f1d-497a-9b6a-7b5f52c454b2.png>
 
 # 0x02. HTML Advanced
 
