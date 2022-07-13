@@ -1,70 +1,43 @@
 #!/usr/bin/env python3
+"""Class that inherits from Auth
 """
-Route module for the API
-"""
-from os import getenv
-from api.v1.views import app_views
-from flask import Flask, jsonify, abort, request
-from flask_cors import (CORS, cross_origin)
-import os
+from api.v1.auth.auth import Auth
+import uuid
+from models.user import User
 
 
-app = Flask(__name__)
-app.register_blueprint(app_views)
-CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-auth = None
+class SessionAuth(Auth):
+    """Session Authentication"""
+    user_id_by_session_id = {}
 
-if getenv('AUTH_TYPE') == 'auth':
-    from api.v1.auth.auth import Auth
-    auth = Auth()
-elif getenv('AUTH_TYPE') == 'basic_auth':
-    from api.v1.auth.basic_auth import BasicAuth
-    auth = BasicAuth()
-elif getenv('AUTH_TYPE') == 'session_auth':
-    from api.v1.auth.session_auth import SessionAuth
-    auth = SessionAuth()
+    def create_session(self, user_id: str = None) -> str:
+        """Creates a Session ID for a user_id"""
+        if user_id is None or type(user_id) is not str:
+            return None
+        session_id = str(uuid.uuid4())
+        self.user_id_by_session_id[session_id] = user_id
+        return session_id
 
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """Returns a User ID based on a Session ID"""
+        if session_id is None or type(session_id) is not str:
+            return None
+        return self.user_id_by_session_id.get(session_id)
 
-@app.before_request
-def before_request() -> None:
-    """ Before request
-    """
-    if auth is not None:
-        exclude_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
-                         '/api/v1/forbidden/', '/api/v1/auth_session/login/']
-        require_auth = auth.require_auth(path=request.path,
-                                         excluded_paths=exclude_paths)
-        if require_auth:
-            if not auth.authorization_header(request) and not \
-               auth.session_cookie(request):
-                abort(401)
-            if not auth.current_user(request):
-                abort(403)
-            request.current_user = auth.current_user(request)
+    def current_user(self, request=None):
+        """returns a User instance based on a cookie value"""
+        session_id = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_id)
+        return User.get(user_id)
 
-
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """ Not found handler
-    """
-    return jsonify({"error": "Not found"}), 404
-
-
-@app.errorhandler(401)
-def unauthorized(error) -> str:
-    """ unauthorized error handler
-    """
-    return jsonify({"error": "Unauthorized"}), 401
-
-
-@app.errorhandler(403)
-def not_allowed(error) -> str:
-    """ not allowed error handler
-    """
-    return jsonify({"error": "Forbidden"}), 403
-
-
-if __name__ == "__main__":
-    host = getenv("API_HOST", "0.0.0.0")
-    port = getenv("API_PORT", "5000")
-    app.run(host=host, port=port)
+    def destroy_session(self, request=None):
+        """Deletes the user session / logout:"""
+        if request is None:
+            return False
+        cookie = self.session_cookie(request)
+        if cookie is None:
+            return False
+        if self.user_id_for_session_id(cookie) is None:
+            return False
+        del self.user_id_by_session_id[cookie]
+        return True
